@@ -55,6 +55,9 @@ def download_video(index, username, name, url, retry=3):
      '''
     print("\r正在下载第%s个视频: %s" % (index, name))
     try:
+        # 获取去水印的抖音视频
+        if('playwm' in url):
+            url = url.replace('playwm','play')
         response = requests.get(url, stream=True, headers=download_headers, timeout=15, allow_redirects=False)
         video_url = response.headers['Location']
         video_response = requests.get(video_url, headers=download_headers, timeout=15)
